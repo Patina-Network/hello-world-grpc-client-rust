@@ -2,6 +2,7 @@ import { SonarScannerClient } from "@tahminator/pipeline";
 import { $ } from "bun";
 
 import { exclusions } from "../../../../exclusions";
+import { SONAR_ORGANIZATION, SONAR_PROJECT_KEY } from "../consts";
 
 async function main() {
   const { sonarToken } = parseCiEnv(process.env);
@@ -15,9 +16,9 @@ async function main() {
         "rust.lcov.reportPaths": "./lcov.info",
         "coverage.exclusions": `${exclusions}`,
       },
-      organization: "patina-network",
+      organization: SONAR_ORGANIZATION,
       sourceCodeDir: "src/",
-      projectKey: "Patina-Network_hello-world-grpc-client-rust",
+      projectKey: SONAR_PROJECT_KEY,
     },
     run: {
       runTestsCmd: $`cargo clippy --locked --all-targets --message-format=json > clippy-report.json && cargo tarpaulin --locked --out lcov`,
