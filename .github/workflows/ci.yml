@@ -28,6 +28,7 @@ jobs:
         uses: tahminator/pipeline/actions/setup@8601c1c7d28289879772574a60fe817fb953eeee # 1.0.93
         with:
           SECRETS: ${{ toJSON(secrets) }}
+          LINT_CI: true
           HEADSCALE_ADDRESS: ${{ secrets.HEADSCALE_ADDRESS }}
           HEADSCALE_USER: ${{ secrets.HEADSCALE_USER }}
           HEADSCALE_PREAUTHKEY: ${{ secrets.HEADSCALE_PREAUTHKEY }}
@@ -35,9 +36,6 @@ jobs:
           RUST_TOOLCHAIN: "1.99.0"
           RUST_COMPONENTS: "clippy, rustfmt"
           CARGO_PACKAGES: cargo-tarpaulin
-
-      - name: Test CI scripts
-        run: bun run --cwd .github/scripts test
 
       - name: Run pre-test checks
         uses: ./.github/composite/pretest
@@ -53,10 +51,6 @@ jobs:
     if: >-
       github.ref_name == 'main' ||
       github.event.pull_request.head.repo.full_name == github.repository
-
-    permissions:
-      contents: read
-      pull-requests: write
 
     strategy:
       fail-fast: false
@@ -75,14 +69,12 @@ jobs:
         uses: tahminator/pipeline/actions/setup@8601c1c7d28289879772574a60fe817fb953eeee # 1.0.93
         with:
           SECRETS: ${{ toJSON(secrets) }}
+          LINT_CI: true
           HEADSCALE_ADDRESS: ${{ secrets.HEADSCALE_ADDRESS }}
           HEADSCALE_USER: ${{ secrets.HEADSCALE_USER }}
           HEADSCALE_PREAUTHKEY: ${{ secrets.HEADSCALE_PREAUTHKEY }}
           INSTALL_RUST: true
           RUST_TOOLCHAIN: "1.99.0"
-
-      - name: Test CI scripts
-        run: bun run --cwd .github/scripts test
 
       - name: Build image
         uses: ./.github/composite/build-image
@@ -113,9 +105,7 @@ jobs:
         uses: tahminator/pipeline/actions/setup@8601c1c7d28289879772574a60fe817fb953eeee # 1.0.93
         with:
           SECRETS: ${{ toJSON(secrets) }}
-
-      - name: Test CI scripts
-        run: bun run --cwd .github/scripts test
+          LINT_CI: true
 
       - name: Deploy client
         uses: ./.github/composite/deploy
@@ -141,9 +131,7 @@ jobs:
         uses: tahminator/pipeline/actions/setup@8601c1c7d28289879772574a60fe817fb953eeee # 1.0.93
         with:
           SECRETS: ${{ toJSON(secrets) }}
-
-      - name: Test CI scripts
-        run: bun run --cwd .github/scripts test
+          LINT_CI: true
 
       - name: Create new tag
         uses: ./.github/composite/create-tag
