@@ -1,4 +1,5 @@
 # hello-world-grpc-client-rust
+
 Hello World gRPC Rust client for Patina Network
 
 The UI is a single `frontend/index.html` (Tailwind from a CDN, no build step), embedded into the binary at compile time with `include_str!`.
@@ -11,7 +12,7 @@ The UI is a single `frontend/index.html` (Tailwind from a CDN, no build step), e
 - Tailscale, connected to the Patina VPN [(brew.sh)](https://formulae.brew.sh/cask/tailscale-app)
 
 > [!NOTE]
-> You must be connected to the VPN to connect locally. You can find the instructions to connect at https://docs.patinanetwork.org/infra/how-to-connect-to-vpn/
+> You must be connected to the VPN to connect locally. You can find the instructions to connect at <https://docs.patinanetwork.org/infra/how-to-connect-to-vpn/>
 
 The VPN is needed both to download the `hello-world-grpc-service` crate from the private Cargo registry (`pkg.vpn.patinanetwork.org`) and to reach the staging gRPC service.
 
@@ -27,16 +28,16 @@ just docker-build
 
 ## Environment
 
-| Variable | Default | Description |
-|---|---|---|
-| `HELLO_WORLD_SERVICE_GRPC_HOST` | `hello-world-grpc-service:50051` | `host:port` of the gRPC service |
-| `HELLO_WORLD_SERVICE_GRPC_TLS` | `false` | Connect to the gRPC service over TLS (`true`/`false`) |
-| `HELLO_WORLD_SERVICE_GRPC_TIMEOUT_MS` | `3000` | Deadline for each gRPC call, in milliseconds |
-| `HTTP_PORT` | `8080` | Port the HTTP server listens on (always binds `0.0.0.0`) |
-| `VERSION` | unset | Returned by `GET /version`; `N/A` when unset |
-| `HELLO_WORLD_CLIENT_URLS` | unset | Comma-separated URLs returned by `GET /urls` and listed in the UI |
-| `ENVIRONMENT` | unset | `production` or `staging` switches logs to JSON; anything else logs human-readable |
-| `RUST_LOG` | `info` | Log filter, e.g. `debug` or `hello_world_client_rust=debug` |
+| Variable                              | Default                          | Description                                                                        |
+| ------------------------------------- | -------------------------------- | ---------------------------------------------------------------------------------- |
+| `HELLO_WORLD_SERVICE_GRPC_HOST`       | `hello-world-grpc-service:50051` | `host:port` of the gRPC service                                                    |
+| `HELLO_WORLD_SERVICE_GRPC_TLS`        | `false`                          | Connect to the gRPC service over TLS (`true`/`false`)                              |
+| `HELLO_WORLD_SERVICE_GRPC_TIMEOUT_MS` | `3000`                           | Deadline for each gRPC call, in milliseconds                                       |
+| `HTTP_PORT`                           | `8080`                           | Port the HTTP server listens on (always binds `0.0.0.0`)                           |
+| `VERSION`                             | unset                            | Returned by `GET /version`; `N/A` when unset                                       |
+| `HELLO_WORLD_CLIENT_URLS`             | unset                            | Comma-separated URLs returned by `GET /urls` and listed in the UI                  |
+| `ENVIRONMENT`                         | unset                            | `production` or `staging` switches logs to JSON; anything else logs human-readable |
+| `RUST_LOG`                            | `info`                           | Log filter, e.g. `debug` or `hello_world_client_rust=debug`                        |
 
 Values that don't parse (e.g. `HTTP_PORT=http`) fall back to the default. `just run` sets `HELLO_WORLD_SERVICE_GRPC_HOST` to the staging service and `HELLO_WORLD_SERVICE_GRPC_TLS=true`.
 
